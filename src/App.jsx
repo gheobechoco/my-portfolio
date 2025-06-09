@@ -1,20 +1,24 @@
+import { Box } from '@mui/material';
 import HeroSection from './components/HeroSection';
-import StorySection from './components/StorySection';   
+import ServicesSection from './components/ServicesSection';   
 import SkillsSection from './components/SkillsSection'; 
 import ProjectsSection from './components/ProjectsSection'; 
-import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
+
 function App() {
   return (
-    <div>
+    <Box sx={{ 
+      overflowX: 'hidden',
+      background: 'linear-gradient(to bottom, #0a192f, #0a1a30, #0a192f)',
+      backgroundAttachment: 'fixed',
+      fontSize: { xs: '14px', sm: '16px' } // Taille de police responsive
+    }}>
       <HeroSection />
-      <StorySection />
+      <ServicesSection />
       <SkillsSection />
       <ProjectsSection />
-      <ContactSection />
       <Footer />
-      {/* Ajoutez d'autres sections ici si nécessaire */}
-    </div>
+    </Box>
   );
 }
 
