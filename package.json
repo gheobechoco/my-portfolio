@@ -1,5 +1,6 @@
 {
   "name": "my-hero-project",
+  "description": "Un projet React  et Vite rapide sur mon Portefolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
