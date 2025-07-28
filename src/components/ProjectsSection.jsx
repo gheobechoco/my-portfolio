@@ -46,7 +46,7 @@ const ParticlesBackground = ({ mouseX, mouseY }) => {
 const projects = [
   { title: 'TchopShap', description: "Un blog développé avec React et Markdown", image: 'tchopshap.png', url: 'https://tchopshap.vercel.app/' },
   { title: 'Aspish', description: "Une boutique en ligne avec panier et paiement", image: 'aspish.png', url: 'https://aspish2-0.vercel.app/' },
-  { title: 'Fuse', description: "Un mini-jeu de simulation de fusée entièrement codé en JavaScript. Explorez une interface interactive et pilotez votre propre fusée !", image: 'fuse.png', url: 'https://gheobechoco.github.io/fusee-js/' },
+  { title: 'AbAmAd', description: "Découvrez ce projet sur ma page Github.", image: '/abamad-liv-jl-accroupi.jpeg', url: 'https://gheobechoco.github.io/AbAmAd/' }, // Nouveau projet
   { title: 'Redux Todo App', description: "Une application Todo utilisant Redux pour la gestion d'état", image: 'redux-todo.png', url: 'https://redux1-lilac.vercel.app/' },
   { title: 'Mon Portfolio', description: "Découvrez mon portfolio déployé sur Vercel, présentant mes projets et compétences.", image: 'portfolio.png', url: 'https://vercel.com/gheobechocos-projects/my-portfolio' },
 ];
