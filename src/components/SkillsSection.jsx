@@ -196,6 +196,7 @@ export default function SkillsSection() {
                     onChange={handleLevelChange(index)}
                     aria-label={`${skill.name} niveau`}
                     valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${value}%`}
                     min={0}
                     max={100}
                     sx={{

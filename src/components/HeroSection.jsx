@@ -26,12 +26,12 @@ const ParticlesBackground = ({ mouseX, mouseY }) => {
         const y = Math.random() * 100;
         const moveX = useTransform(
           mouseX,
-          [0, window.innerWidth],
+          [0, typeof window !== 'undefined' ? window.innerWidth : 1000],
           [0, (i % 2 ? 1 : -1) * size * 2]
         );
         const moveY = useTransform(
           mouseY,
-          [0, window.innerHeight],
+          [0, typeof window !== 'undefined' ? window.innerHeight : 1000],
           [0, (i % 3 ? 1 : -1) * size * 2]
         );
         return (
@@ -68,8 +68,6 @@ export default function HeroSection() {
   const cursorY = useMotionValue(0);
   const smoothX = useSpring(cursorX, { damping: 20, stiffness: 300 });
   const smoothY = useSpring(cursorY, { damping: 20, stiffness: 300 });
-  const rotateX = useTransform(smoothY, [0, window.innerHeight], [-15, 15]);
-  const rotateY = useTransform(smoothX, [0, window.innerWidth], [15, -15]);
 
   const handleOpenContact = () => setOpenContact(true);
   const handleCloseContact = () => setOpenContact(false);
@@ -118,6 +116,7 @@ export default function HeroSection() {
   return (
     <Box
       ref={containerRef}
+      id="home"
       sx={{
         position: 'relative',
         height: '100vh',
@@ -127,6 +126,10 @@ export default function HeroSection() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        paddingTop: '70px', // Compensation pour la navbar fixe
+        '@media (max-width: 600px)': {
+          paddingTop: '60px',
+        }
       }}
     >
       <ParticlesBackground mouseX={smoothX} mouseY={smoothY} />
@@ -140,7 +143,13 @@ export default function HeroSection() {
         }}
       />
 
-      <Box sx={{ position: 'absolute', top: { xs: 20, md: 40 }, left: { xs: 'auto', md: 40 }, right: { xs: 20, md: 'auto' }, zIndex: 20 }}>
+      <Box sx={{ 
+        position: 'absolute', 
+        top: { xs: 80, md: 100 }, // Ajusté pour éviter la navbar
+        left: { xs: 'auto', md: 40 }, 
+        right: { xs: 20, md: 'auto' }, 
+        zIndex: 20 
+      }}>
         <DraggableAvatar src="/profile.jpg" size={{ xs: 100, md: 140 }} borderSize={3} borderColor="#64ffda" />
       </Box>
 

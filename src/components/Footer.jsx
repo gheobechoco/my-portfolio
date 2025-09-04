@@ -14,12 +14,12 @@ const ParticlesBackground = ({ mouseX, mouseY }) => {
         const y = Math.random() * 100;
         const moveX = useTransform(
           mouseX,
-          [0, window.innerWidth],
+          [0, typeof window !== 'undefined' ? window.innerWidth : 1000],
           [0, (i % 2 ? 1 : -1) * size * 2]
         );
         const moveY = useTransform(
           mouseY,
-          [0, window.innerHeight],
+          [0, typeof window !== 'undefined' ? window.innerHeight : 1000],
           [0, (i % 3 ? 1 : -1) * size * 2]
         );
         return (
