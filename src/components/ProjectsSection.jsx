@@ -66,6 +66,13 @@ const projects = [
     url: 'https://vercel.com/gheobechocos-projects/my-portfolio',
     technologies: ['React', 'MUI', 'Framer Motion']
   },
+  { 
+    title: 'Maquette Entreprise EDC PRO CONSULTING', 
+    description: "Découvrez la Maquette d EDC PRO Consulting un de nos Client actuel .", 
+    image: 'src/assets/EDC.jpg', 
+    url: 'https://supply-edc.vercel.app/',
+    technologies: ['React', 'MUI', 'Framer Motion']
+  },
 ];
 
 const ProjectsSection = () => {
