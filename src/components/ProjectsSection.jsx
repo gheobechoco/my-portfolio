@@ -3,6 +3,9 @@ import { Box, Typography, Divider, Grid, Card, CardMedia, CardContent, CardActio
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import SectionTransition from './SectionTransition';
 import useGsapAnimation from '../hooks/useGsapAnimation';
+import healthImg from '../assets/PIEDS DE PAGE MARY MEDICLINIC.png';
+import ogoulaImg from '../assets/PorteCvMedium.png';
+import ndalangImg from '../assets/NdaLang.png';
 
 const ParticlesBackground = ({ mouseX, mouseY }) => {
   const particles = Array.from({ length: 20 });
@@ -72,6 +75,27 @@ const projects = [
     image: 'src/assets/EDC.jpg', 
     url: 'https://supply-edc.vercel.app/',
     technologies: ['React', 'MUI', 'Framer Motion']
+  },
+  {
+    title: 'Health Clinic Port-Gentil',
+    description: "Site web d'une clinique développé et déployé sur Vercel — interface patient/présentation.",
+    image: healthImg,
+    url: 'https://health-clinic-portgentil.vercel.app/',
+    technologies: ['React', 'Vercel']
+  },
+  {
+    title: 'Ogoula Jesse (Replica)',
+    description: "Réplique du projet de Ogoula Jesse réalisée en React et déployée sur Vercel.",
+    image: ogoulaImg,
+    url: 'https://ogoulajesse-replica-react.vercel.app/',
+    technologies: ['React', 'Vercel']
+  },
+  {
+    title: 'NdaLang',
+    description: "Application NdaLang — préparation de votre parcours linguistique.",
+    image: ndalangImg,
+    url: 'https://ndalang1-927j.vercel.app/',
+    technologies: ['React', 'Vercel']
   },
 ];
 
