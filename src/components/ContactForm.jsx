@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import { TextField, Button, DialogActions, Box, CircularProgress } from '@mui/material';
+import ConfettiCongrats from './ConfettiCongrats';
 
 export default function ContactForm({ onSuccess }) {
   const [state, handleSubmit] = useForm("mnnpedla"); // votre ID Formspree
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  React.useEffect(() => {
+    if (state.succeeded) {
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3500);
+    }
+  }, [state.succeeded]);
 
   if (state.succeeded) {
     return (
       <Box sx={{ 
         padding: 3,
         textAlign: 'center',
-        color: '#64ffda'
+        color: '#64ffda',
+        position: 'relative',
+        minHeight: 200
       }}>
-        <p>✅ Merci pour votre message !</p>
+        <ConfettiCongrats run={showConfetti} />
+        <p style={{ fontSize: 32, margin: 0 }}>🎉 Merci pour votre message !</p>
         <p>Je vous répondrai dès que possible.</p>
       </Box>
     );
