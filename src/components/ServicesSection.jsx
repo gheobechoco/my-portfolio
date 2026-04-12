@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Box, Typography, Divider, Grid, Card, CardContent, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, Divider, Card, CardContent, useTheme, useMediaQuery } from '@mui/material';
+import Grid from '@mui/material/GridLegacy';
 import { motion } from 'framer-motion';
+import { Monitor, Paintbrush, LayoutDashboard, Zap } from 'lucide-react';
 import SectionTransition from './SectionTransition';
 
 // Optimized typing effect with better performance
@@ -39,28 +41,28 @@ const services = [
   {
     title: 'Développement Frontend',
     description: 'Création d\'interfaces modernes et réactives avec React, Material-UI et animations Framer Motion',
-    icon: '💻',
+    icon: Monitor,
     color: '#00ffc3',
     delay: 0.1
   },
   {
     title: 'Design UI/UX',
     description: 'Conception d\'expériences utilisateur intuitives et esthétiques avec Figma',
-    icon: '🎨',
+    icon: Paintbrush,
     color: '#ff00f7',
     delay: 0.2
   },
   {
     title: 'Sites Vitrines',
     description: 'Développement de sites web performants et optimisés pour les petites entreprises',
-    icon: '🖥️',
+    icon: LayoutDashboard,
     color: '#00b7ff',
     delay: 0.3
   },
   {
     title: 'Applications Web',
     description: 'Création d\'applications web sur mesure pour répondre à vos besoins spécifiques',
-    icon: '⚡',
+    icon: Zap,
     color: '#ff8300',
     delay: 0.4
   }
@@ -189,7 +191,7 @@ const ServicesSection = () => {
           sx={{ pb: { xs: 6, md: 10 } }}
         >
           {services.map((service, index) => (
-            <Grid key={index} item xs={12} sm={6} md={6} lg={3}>
+            <Grid key={index} xs={12} sm={6} md={6} lg={3}>
               <motion.div
                 variants={itemVariants}
                 whileHover={{ 
@@ -232,17 +234,12 @@ const ServicesSection = () => {
                       }}
                       viewport={{ once: true }}
                     >
-                      <Typography 
-                        variant="h1" 
-                        sx={{ 
-                          fontSize: { xs: '2.5rem', md: '3.5rem' }, 
-                          mb: 3, 
-                          color: service.color,
-                          filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.3))'
-                        }}
-                      >
-                        {service.icon}
-                      </Typography>
+                      <service.icon
+                        size={54}
+                        strokeWidth={1.8}
+                        color={service.color}
+                        style={{ marginBottom: 24, filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.3))' }}
+                      />
                     </motion.div>
                     
                     <Typography 

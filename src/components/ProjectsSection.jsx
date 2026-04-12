@@ -1,11 +1,28 @@
 import React, { useRef, useEffect } from 'react';
-import { Box, Typography, Divider, Grid, Card, CardMedia, CardContent, CardActions, Button, useTheme, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Divider,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Button,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
+import Grid from '@mui/material/GridLegacy';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import SectionTransition from './SectionTransition';
 import useGsapAnimation from '../hooks/useGsapAnimation';
+import FigmaEmbed from './FigmaEmbed'; // Import du composant d'embed Figma
 import healthImg from '../assets/PIEDS DE PAGE MARY MEDICLINIC.png';
 import ogoulaImg from '../assets/PorteCvMedium.png';
 import ndalangImg from '../assets/NdaLang.png';
+import portecvLogoImg from '../assets/logo-portecv-fondBlancn.png';
+import portecvStudentImg from '../assets/etudiant-potecv-polo-modele.jpg';
+import zipUnzipImg from '../assets/student-hero-DQI870mp.jpg';
+import edelweissImg from '../assets/logo-edelweiss.jpg';
 
 const ParticlesBackground = ({ mouseX, mouseY }) => {
   const particles = Array.from({ length: 20 });
@@ -48,31 +65,31 @@ const ParticlesBackground = ({ mouseX, mouseY }) => {
 };
 
 const projects = [
-  { 
-    title: 'TchopShap', 
-    description: "Un blog développé avec React et Markdown", 
-    image: 'tchopshap.png', 
+  {
+    title: 'TchopShap',
+    description: "Un blog développé avec React et Markdown",
+    image: 'tchopshap.png',
     url: 'https://tchopshap.vercel.app/',
     technologies: ['React', 'Markdown', 'Vercel']
   },
-  { 
-    title: 'AbAmAd', 
-    description: "Découvrez ce projet sur ma page Github.", 
-    image: '/abamad-liv-jl-accroupi.jpeg', 
+  {
+    title: 'AbAmAd',
+    description: "Découvrez ce projet sur ma page Github.",
+    image: '/abamad-liv-jl-accroupi.jpeg',
     url: 'https://gheobechoco.github.io/AbAmAd/',
     technologies: ['HTML', 'CSS', 'JavaScript']
   },
-  { 
-    title: 'Mon Portfolio', 
-    description: "Découvrez mon portfolio déployé sur Vercel, présentant mes projets et compétences.", 
-    image: 'portfolio.png', 
+  {
+    title: 'Mon Portfolio',
+    description: "Découvrez mon portfolio déployé sur Vercel, présentant mes projets et compétences.",
+    image: 'portfolio.png',
     url: 'https://vercel.com/gheobechocos-projects/my-portfolio',
     technologies: ['React', 'MUI', 'Framer Motion']
   },
-  { 
-    title: 'Maquette Entreprise EDC PRO CONSULTING', 
-    description: "Découvrez la Maquette d EDC PRO Consulting un de nos Client actuel .", 
-    image: 'src/assets/EDC.jpg', 
+  {
+    title: 'Maquette Entreprise EDC PRO CONSULTING',
+    description: "Découvrez la Maquette d EDC PRO Consulting un de nos Client actuel .",
+    image: 'src/assets/EDC.jpg',
     url: 'https://supply-edc.vercel.app/',
     technologies: ['React', 'MUI', 'Framer Motion']
   },
@@ -97,6 +114,42 @@ const projects = [
     url: 'https://ndalang1-927j.vercel.app/',
     technologies: ['React', 'Vercel']
   },
+  {
+    title: 'Mary Mediclinique',
+    description: "Site web de la clinique Mary Mediclinique - présentation des services médicaux et prise de rendez-vous.",
+    image: healthImg,
+    url: 'https://mary-mediclinique.vercel.app/',
+    technologies: ['React', 'MUI', 'Vercel']
+  },
+  {
+    title: 'Gabon Talent Connect',
+    description: "Plateforme de mise en relation professionnelle et d'emploi pour le Gabon.",
+    image: portecvLogoImg,
+    url: 'https://gabon-talent-connect.vercel.app/',
+    technologies: ['React', 'Vercel', 'UI']
+  },
+  {
+    title: 'Portecv Premium',
+    description: "Espace premium Portecv avec modèle de candidature et ressources professionnelles.",
+    image: portecvStudentImg,
+    url: 'https://portecv-premium-7eb646b1.vercel.app/',
+    technologies: ['React', 'Design', 'Vercel']
+  },
+  {
+    title: 'Zip Unzip Revive',
+    description: "Application de gestion de fichiers pour zipper et dézipper rapidement.",
+    image: zipUnzipImg,
+    url: 'https://zip-unzip-revive.vercel.app/',
+    technologies: ['React', 'Vercel', 'Productivité']
+  },
+  {
+    title: 'EdelWeiss Logiciel – Maquette Figma',
+    description: "Design complet d'un logiciel de gestion d'entreprise (ERP) : tableaux de bord, facturation, gestion RH, planning.",
+    image: edelweissImg,
+    url: 'https://www.figma.com/file/PGoHtdjBW1S8ACkOPdPA43/EdelWeiss-Logiciel?node-id=215-217',
+    isFigma: true, // Indique qu'il s'agit d'un embed Figma
+    technologies: ['Figma', 'UI/UX', 'Prototypage']
+  }
 ];
 
 const ProjectsSection = () => {
@@ -106,10 +159,10 @@ const ProjectsSection = () => {
   const cursorY = useMotionValue(0);
   const smoothX = useSpring(cursorX, { damping: 20, stiffness: 300 });
   const smoothY = useSpring(cursorY, { damping: 20, stiffness: 300 });
-  
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
+
   // Animation GSAP pour le titre
   const { ref: gsapTitleRef, addAnimation: addTitleAnimation } = useGsapAnimation();
   // Animation GSAP pour les cartes
@@ -193,51 +246,51 @@ const ProjectsSection = () => {
       />
 
       {/* Titre avec animation GSAP */}
-      <Box 
+      <Box
         ref={titleRef}
-        sx={{ 
-          position: 'relative', 
-          zIndex: 2, 
-          textAlign: 'center', 
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          textAlign: 'center',
           py: { xs: 6, md: 8 },
           opacity: 0,
           transform: 'translateY(50px)'
         }}
       >
-        <Typography 
-          variant="h2" 
-          sx={{ 
-            fontWeight: 800, 
-            color: '#64ffda', 
-            mb: 2, 
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 800,
+            color: '#64ffda',
+            mb: 2,
             fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.2rem' },
             textShadow: '0 0 15px rgba(100, 255, 218, 0.6)'
           }}
         >
           Mes Projets
         </Typography>
-        <Divider 
-          sx={{ 
-            width: { xs: '60px', md: '80px' }, 
-            height: '4px', 
-            mx: 'auto', 
-            backgroundColor: '#64ffda', 
-            boxShadow: '0 0 15px #64ffda', 
-            borderRadius: '2px' 
-          }} 
+        <Divider
+          sx={{
+            width: { xs: '60px', md: '80px' },
+            height: '4px',
+            mx: 'auto',
+            backgroundColor: '#64ffda',
+            boxShadow: '0 0 15px #64ffda',
+            borderRadius: '2px'
+          }}
         />
       </Box>
 
       {/* Grille de projets avec animations GSAP */}
-      <Grid 
+      <Grid
         ref={gsapCardsRef}
-        container 
-        spacing={{ xs: 3, md: 4 }} 
-        justifyContent="center" 
-        sx={{ 
-          position: 'relative', 
-          zIndex: 2, 
-          px: { xs: 1, sm: 2, md: 3 }, 
+        container
+        spacing={{ xs: 3, md: 4 }}
+        justifyContent="center"
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          px: { xs: 1, sm: 2, md: 3 },
           pb: { xs: 6, md: 10 },
           maxWidth: '1400px',
           mx: 'auto',
@@ -248,13 +301,12 @@ const ProjectsSection = () => {
         }}
       >
         {projects.map((proj) => (
-          <Grid 
-            key={proj.title} 
-            item 
-            xs={12} 
-            sm={6} 
+          <Grid
+            key={proj.title}
+            xs={12}
+            sm={6}
             md={4}
-            sx={{ 
+            sx={{
               display: 'flex',
               justifyContent: 'center'
             }}
@@ -280,43 +332,48 @@ const ProjectsSection = () => {
                 },
               }}
             >
-              {proj.image && (
-                <CardMedia 
+              {/* Affichage conditionnel : image si disponible, sinon embed Figma */}
+              {proj.image ? (
+                <CardMedia
                   component="img"
                   image={proj.image}
                   alt={proj.title}
-                  sx={{ 
-                    height: '200px',
+                  sx={{
+                    height: { xs: '170px', sm: '190px', md: '200px' },
                     objectFit: 'cover',
                     objectPosition: 'center top'
                   }}
                 />
-              )}
-              
-              <CardContent 
-                sx={{ 
+              ) : proj.isFigma ? (
+                <Box sx={{ p: 2 }}>
+                  <FigmaEmbed title={proj.title} />
+                </Box>
+              ) : null}
+
+              <CardContent
+                sx={{
                   flexGrow: 1,
                   p: { xs: 2.5, md: 3 },
                   display: 'flex',
                   flexDirection: 'column'
                 }}
               >
-                <Typography 
-                  variant="h5" 
-                  sx={{ 
-                    color: '#64ffda', 
-                    fontWeight: 700, 
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: '#64ffda',
+                    fontWeight: 700,
                     mb: 2,
                     fontSize: { xs: '1.3rem', md: '1.5rem' }
                   }}
                 >
                   {proj.title}
                 </Typography>
-                
-                <Typography 
-                  variant="body1" 
-                  sx={{ 
-                    color: '#8892b0', 
+
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: '#8892b0',
                     mb: 3,
                     flexGrow: 1,
                     lineHeight: 1.6,
@@ -328,10 +385,10 @@ const ProjectsSection = () => {
 
                 {proj.technologies && (
                   <Box sx={{ mb: 3 }}>
-                    <Typography 
-                      variant="caption" 
-                      sx={{ 
-                        color: '#64ffda', 
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: '#64ffda',
                         fontWeight: 600,
                         display: 'block',
                         mb: 1
@@ -351,9 +408,9 @@ const ProjectsSection = () => {
                             border: '1px solid rgba(100, 255, 218, 0.2)'
                           }}
                         >
-                          <Typography 
-                            variant="caption" 
-                            sx={{ 
+                          <Typography
+                            variant="caption"
+                            sx={{
                               color: '#64ffda',
                               fontSize: '0.75rem'
                             }}
@@ -366,31 +423,34 @@ const ProjectsSection = () => {
                   </Box>
                 )}
               </CardContent>
-              
-              <CardActions sx={{ p: { xs: 2.5, md: 3 }, pt: 0 }}>
-                <Button 
-                  size="medium"
-                  variant="outlined"
-                  href={proj.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{ 
-                    color: '#64ffda', 
-                    borderColor: '#64ffda',
-                    borderRadius: '8px',
-                    px: 3,
-                    py: 1,
-                    fontWeight: 600,
-                    '&:hover': {
-                      bgcolor: 'rgba(100, 255, 218, 0.1)',
+
+              {/* Bouton Voir le projet : uniquement si ce n'est pas un embed Figma */}
+              {proj.url && (
+                <CardActions sx={{ p: { xs: 2.5, md: 3 }, pt: 0 }}>
+                  <Button
+                    size="medium"
+                    variant="outlined"
+                    href={proj.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      color: '#64ffda',
                       borderColor: '#64ffda',
-                      transform: 'scale(1.05)'
-                    }
-                  }}
-                >
-                  Voir le projet
-                </Button>
-              </CardActions>
+                      borderRadius: '8px',
+                      px: 3,
+                      py: 1,
+                      fontWeight: 600,
+                      '&:hover': {
+                        bgcolor: 'rgba(100, 255, 218, 0.1)',
+                        borderColor: '#64ffda',
+                        transform: 'scale(1.05)'
+                      }
+                    }}
+                  >
+                    {proj.isFigma ? 'Voir le design Figma' : 'Voir le projet'}
+                  </Button>
+                </CardActions>
+              )}
             </Card>
           </Grid>
         ))}

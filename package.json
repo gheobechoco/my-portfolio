@@ -19,6 +19,7 @@
     "@mui/material": "^7.1.1",
     "framer-motion": "^12.16.0",
     "gsap": "^3.13.0",
+    "lucide-react": "^0.517.0",
     "react": "^19.0.0",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.0.0"

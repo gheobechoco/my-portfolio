@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Box, Typography, Divider, Grid, Slider } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Divider } from '@mui/material';
+import Grid from '@mui/material/GridLegacy';
 import { motion } from 'framer-motion';
 import SectionTransition from './SectionTransition';
 
@@ -60,15 +61,7 @@ const itemVariants = {
 };
 
 export default function SkillsSection() {
-  const [skills, setSkills] = useState(initialSkills);
-
-  const handleLevelChange = (index) => (event, newValue) => {
-    setSkills((prev) => {
-      const updated = [...prev];
-      updated[index] = { ...updated[index], level: newValue };
-      return updated;
-    });
-  };
+  const skills = initialSkills;
 
   return (
     <Box
@@ -133,7 +126,7 @@ export default function SkillsSection() {
       >
         <Grid container spacing={{ xs: 4, md: 6 }} justifyContent="center">
           {skills.map((skill, index) => (
-            <Grid key={skill.name} item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={skill.name} xs={12} sm={6} md={4} lg={3}>
               <motion.div variants={itemVariants} whileHover={{ scale: 1.07 }}>
                 <Box
                   sx={{
@@ -190,24 +183,6 @@ export default function SkillsSection() {
                   <Typography variant="body2" sx={{ color: '#8892b0', mb: 2 }}>
                     {skill.level}%
                   </Typography>
-
-                  <Slider
-                    value={skill.level}
-                    onChange={handleLevelChange(index)}
-                    aria-label={`${skill.name} niveau`}
-                    valueLabelDisplay="auto"
-                    valueLabelFormat={(value) => `${value}%`}
-                    min={0}
-                    max={100}
-                    sx={{
-                      color: skill.color,
-                      mt: 2,
-                      '& .MuiSlider-rail': {
-                        opacity: 0.25,
-                        backgroundColor: '#ffffff',
-                      },
-                    }}
-                  />
                 </Box>
               </motion.div>
             </Grid>

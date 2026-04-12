@@ -1,4 +1,5 @@
-import { Box, Typography, Grid, Paper, Chip } from '@mui/material';
+import { Box, Typography, Paper, Chip } from '@mui/material';
+import Grid from '@mui/material/GridLegacy';
 import { motion } from 'framer-motion';
 import SectionTransition from './SectionTransition';
 
@@ -29,7 +30,7 @@ export default function AboutSection() {
       }}
     >
       <Grid container spacing={6} alignItems="center">
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -85,7 +86,7 @@ export default function AboutSection() {
           </motion.div>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -94,7 +95,7 @@ export default function AboutSection() {
           >
             <Grid container spacing={3}>
               {stats.map((stat, index) => (
-                <Grid item xs={6} key={stat.label}>
+                <Grid xs={6} key={stat.label}>
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
