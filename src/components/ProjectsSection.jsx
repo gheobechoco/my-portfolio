@@ -11,11 +11,11 @@ import {
   useTheme,
   useMediaQuery
 } from '@mui/material';
-import Grid from '@mui/material/GridLegacy';
+import Grid from '@mui/material/Grid';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import SectionTransition from './SectionTransition';
 import useGsapAnimation from '../hooks/useGsapAnimation';
-import FigmaEmbed from './FigmaEmbed'; // Import du composant d'embed Figma
+import FigmaEmbed from './FigmaEmbed';
 import healthImg from '../assets/PIEDS DE PAGE MARY MEDICLINIC.png';
 import ogoulaImg from '../assets/PorteCvMedium.png';
 import ndalangImg from '../assets/NdaLang.png';
@@ -147,7 +147,7 @@ const projects = [
     description: "Design complet d'un logiciel de gestion d'entreprise (ERP) : tableaux de bord, facturation, gestion RH, planning.",
     image: edelweissImg,
     url: 'https://www.figma.com/file/PGoHtdjBW1S8ACkOPdPA43/EdelWeiss-Logiciel?node-id=215-217',
-    isFigma: true, // Indique qu'il s'agit d'un embed Figma
+    isFigma: true,
     technologies: ['Figma', 'UI/UX', 'Prototypage']
   }
 ];
@@ -161,11 +161,9 @@ const ProjectsSection = () => {
   const smoothY = useSpring(cursorY, { damping: 20, stiffness: 300 });
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // Animation GSAP pour le titre
   const { ref: gsapTitleRef, addAnimation: addTitleAnimation } = useGsapAnimation();
-  // Animation GSAP pour les cartes
   const { ref: gsapCardsRef, addAnimation: addCardsAnimation } = useGsapAnimation();
 
   useEffect(() => {
@@ -179,26 +177,10 @@ const ProjectsSection = () => {
   }, [cursorX, cursorY]);
 
   useEffect(() => {
-    // Lier les refs GSAP aux éléments DOM
     gsapTitleRef.current = titleRef.current;
     gsapCardsRef.current = containerRef.current;
-
-    // Animation du titre
-    addTitleAnimation({
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: 'power3.out'
-    });
-
-    // Animation des cartes
-    addCardsAnimation({
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: 'power3.out'
-    });
+    addTitleAnimation({ y: 0, opacity: 1, duration: 1, ease: 'power3.out' });
+    addCardsAnimation({ y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out' });
   }, [addTitleAnimation, addCardsAnimation]);
 
   return (
@@ -213,11 +195,11 @@ const ProjectsSection = () => {
         bgcolor: 'transparent',
         overflow: 'hidden',
         fontFamily: 'Poppins, sans-serif',
-        px: { xs: 2, sm: 3, md: 4 },
-        py: { xs: 6, md: 8 },
+        px: { xs: 2, sm: 4, md: 8, lg: 10 },
+        py: { xs: 6, md: 10 },
       }}
     >
-      <ParticlesBackground mouseX={smoothX} mouseY={smoothY} />
+      {!isMobile && <ParticlesBackground mouseX={smoothX} mouseY={smoothY} />}
 
       <motion.div
         style={{
@@ -234,18 +216,10 @@ const ProjectsSection = () => {
           y: smoothY,
           opacity: 0.15
         }}
-        animate={{
-          scale: [1, 1.05, 1],
-          rotate: [0, 3, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+        animate={{ scale: [1, 1.05, 1], rotate: [0, 3, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Titre avec animation GSAP */}
       <Box
         ref={titleRef}
         sx={{
@@ -263,7 +237,7 @@ const ProjectsSection = () => {
             fontWeight: 800,
             color: '#64ffda',
             mb: 2,
-            fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.2rem' },
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '3.2rem' },
             textShadow: '0 0 15px rgba(100, 255, 218, 0.6)'
           }}
         >
@@ -281,11 +255,10 @@ const ProjectsSection = () => {
         />
       </Box>
 
-      {/* Grille de projets avec animations GSAP */}
       <Grid
         ref={gsapCardsRef}
         container
-        spacing={{ xs: 3, md: 4 }}
+        spacing={{ xs: 3, sm: 4, md: 5 }}
         justifyContent="center"
         sx={{
           position: 'relative',
@@ -294,28 +267,21 @@ const ProjectsSection = () => {
           pb: { xs: 6, md: 10 },
           maxWidth: '1400px',
           mx: 'auto',
-          '& .MuiGrid-item': {
-            opacity: 0,
-            transform: 'translateY(60px)'
-          }
         }}
       >
         {projects.map((proj) => (
           <Grid
-            key={proj.title}
+            item
             xs={12}
             sm={6}
             md={4}
-            sx={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
+            key={proj.title}
+            sx={{ display: 'flex', justifyContent: 'center' }}
           >
             <Card
               sx={{
                 width: '100%',
-                maxWidth: '400px',
-                minHeight: '450px',
+                maxWidth: { xs: '100%', sm: 380 },
                 bgcolor: '#112240',
                 color: '#ccd6f6',
                 borderRadius: '16px',
@@ -332,52 +298,45 @@ const ProjectsSection = () => {
                 },
               }}
             >
-              {/* Affichage conditionnel : image si disponible, sinon embed Figma */}
-              {proj.image ? (
-                <CardMedia
-                  component="img"
-                  image={proj.image}
-                  alt={proj.title}
-                  sx={{
-                    height: { xs: '170px', sm: '190px', md: '200px' },
-                    objectFit: 'cover',
-                    objectPosition: 'center top'
-                  }}
-                />
-              ) : proj.isFigma ? (
+              {proj.isFigma ? (
                 <Box sx={{ p: 2 }}>
                   <FigmaEmbed title={proj.title} />
                 </Box>
-              ) : null}
+              ) : (
+                proj.image && (
+                  <CardMedia
+                    component="img"
+                    image={proj.image}
+                    alt={proj.title}
+                    loading="lazy"
+                    sx={{
+                      height: { xs: '150px', sm: '170px', md: '200px' },
+                      objectFit: 'cover',
+                      objectPosition: 'center top'
+                    }}
+                  />
+                )
+              )}
 
-              <CardContent
-                sx={{
-                  flexGrow: 1,
-                  p: { xs: 2.5, md: 3 },
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-              >
+              <CardContent sx={{ p: { xs: 2, md: 3 }, flexGrow: 1 }}>
                 <Typography
                   variant="h5"
                   sx={{
                     color: '#64ffda',
                     fontWeight: 700,
                     mb: 2,
-                    fontSize: { xs: '1.3rem', md: '1.5rem' }
+                    fontSize: { xs: '1.2rem', md: '1.5rem' }
                   }}
                 >
                   {proj.title}
                 </Typography>
-
                 <Typography
                   variant="body1"
                   sx={{
                     color: '#8892b0',
                     mb: 3,
-                    flexGrow: 1,
                     lineHeight: 1.6,
-                    fontSize: { xs: '0.95rem', md: '1rem' }
+                    fontSize: { xs: '0.85rem', md: '1rem' }
                   }}
                 >
                   {proj.description}
@@ -385,21 +344,13 @@ const ProjectsSection = () => {
 
                 {proj.technologies && (
                   <Box sx={{ mb: 3 }}>
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        color: '#64ffda',
-                        fontWeight: 600,
-                        display: 'block',
-                        mb: 1
-                      }}
-                    >
+                    <Typography variant="caption" sx={{ color: '#64ffda', fontWeight: 600, display: 'block', mb: 1 }}>
                       Technologies :
                     </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                      {proj.technologies.map((tech, techIndex) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
+                      {proj.technologies.map((tech, idx) => (
                         <Box
-                          key={techIndex}
+                          key={idx}
                           sx={{
                             px: 1.5,
                             py: 0.5,
@@ -408,13 +359,7 @@ const ProjectsSection = () => {
                             border: '1px solid rgba(100, 255, 218, 0.2)'
                           }}
                         >
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              color: '#64ffda',
-                              fontSize: '0.75rem'
-                            }}
-                          >
+                          <Typography variant="caption" sx={{ color: '#64ffda', fontSize: '0.7rem' }}>
                             {tech}
                           </Typography>
                         </Box>
@@ -424,10 +369,10 @@ const ProjectsSection = () => {
                 )}
               </CardContent>
 
-              {/* Bouton Voir le projet : uniquement si ce n'est pas un embed Figma */}
               {proj.url && (
-                <CardActions sx={{ p: { xs: 2.5, md: 3 }, pt: 0 }}>
+                <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0, justifyContent: 'center' }}>
                   <Button
+                    fullWidth
                     size="medium"
                     variant="outlined"
                     href={proj.url}
@@ -437,13 +382,12 @@ const ProjectsSection = () => {
                       color: '#64ffda',
                       borderColor: '#64ffda',
                       borderRadius: '8px',
-                      px: 3,
                       py: 1,
                       fontWeight: 600,
                       '&:hover': {
                         bgcolor: 'rgba(100, 255, 218, 0.1)',
                         borderColor: '#64ffda',
-                        transform: 'scale(1.05)'
+                        transform: 'scale(1.02)'
                       }
                     }}
                   >

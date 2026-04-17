@@ -27,41 +27,41 @@ export const theme = createTheme({
     fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontWeight: 800,
-      fontSize: '3.5rem',
+      fontSize: 'clamp(2rem, 5vw, 4rem)',
       color: '#64ffda',
     },
     h2: {
       fontWeight: 700,
-      fontSize: '2.8rem',
+      fontSize: 'clamp(1.8rem, 4vw, 3rem)',
       color: '#64ffda',
     },
     h3: {
       fontWeight: 600,
-      fontSize: '2.2rem',
+      fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
       color: '#64ffda',
     },
     h4: {
       fontWeight: 600,
-      fontSize: '1.8rem',
+      fontSize: 'clamp(1.2rem, 2.5vw, 2rem)',
       color: '#ccd6f6',
     },
     h5: {
       fontWeight: 500,
-      fontSize: '1.4rem',
+      fontSize: 'clamp(1rem, 2vw, 1.5rem)',
       color: '#ccd6f6',
     },
     h6: {
       fontWeight: 500,
-      fontSize: '1.2rem',
+      fontSize: 'clamp(0.9rem, 1.8vw, 1.25rem)',
       color: '#ccd6f6',
     },
     body1: {
-      fontSize: '1rem',
+      fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
       lineHeight: 1.6,
       color: '#8892b0',
     },
     body2: {
-      fontSize: '0.9rem',
+      fontSize: 'clamp(0.8rem, 1.5vw, 1rem)',
       lineHeight: 1.5,
       color: '#8892b0',
     },
@@ -70,9 +70,9 @@ export const theme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
     },
   },
   components: {

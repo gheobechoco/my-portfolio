@@ -105,7 +105,7 @@ export default function DraggableAvatar({
         '@media (max-width: 600px)': {
           width: 60,
           height: 60,
-          marginLeft: 20,
+          marginLeft: 0,
           marginTop: '60px',
         },
         '&:hover .avatar-controls': {

@@ -1,42 +1,32 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Divider, Card, CardContent, useTheme, useMediaQuery } from '@mui/material';
-import Grid from '@mui/material/GridLegacy';
+import Grid from '@mui/material/Grid';
 import { motion } from 'framer-motion';
 import { Monitor, Paintbrush, LayoutDashboard, Zap } from 'lucide-react';
 import SectionTransition from './SectionTransition';
 
-// Optimized typing effect with better performance
 const useTypingEffect = (text, speed = 30) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (currentIndex >= text.length) return;
-
     const timeoutId = setTimeout(() => {
       setDisplayText(prev => prev + text[currentIndex]);
       setCurrentIndex(prev => prev + 1);
     }, speed);
-
     return () => clearTimeout(timeoutId);
   }, [text, currentIndex, speed]);
 
-  const reset = () => {
-    setDisplayText('');
-    setCurrentIndex(0);
-  };
-
-  return { displayText, reset, isComplete: currentIndex >= text.length };
+  return { displayText };
 };
 
 const TypingText = () => {
   const fullText = "Je m'engage à fournir des solutions web sur mesure qui allient performance, design et expérience utilisateur.";
   const { displayText } = useTypingEffect(fullText, 40);
-
   return <>{displayText}</>;
 };
 
-// Services data
 const services = [
   {
     title: 'Développement Frontend',
@@ -68,40 +58,27 @@ const services = [
   }
 ];
 
-// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
-    }
+    transition: { staggerChildren: 0.2, delayChildren: 0.3 }
   }
 };
 
 const itemVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 50,
-    scale: 0.8
-  },
+  hidden: { opacity: 0, y: 50, scale: 0.8 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 15
-    }
+    transition: { type: "spring", stiffness: 100, damping: 15 }
   }
 };
 
 const ServicesSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Box
@@ -113,12 +90,11 @@ const ServicesSection = () => {
         minHeight: '100vh',
         bgcolor: 'transparent',
         overflow: 'hidden',
-        px: { xs: 2, sm: 4, md: 6, lg: 8 },
-        py: { xs: 4, md: 8 },
+        px: { xs: 2, sm: 4, md: 8, lg: 10 },
+        py: { xs: 6, md: 10 },
         zIndex: 1,
       }}
     >
-      {/* Animated background elements */}
       <motion.div
         style={{
           position: 'absolute',
@@ -132,18 +108,10 @@ const ServicesSection = () => {
           zIndex: 0,
           opacity: 0.15,
         }}
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+        animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -176,7 +144,6 @@ const ServicesSection = () => {
         </Box>
       </motion.div>
 
-      {/* Services Grid */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -186,23 +153,24 @@ const ServicesSection = () => {
       >
         <Grid
           container
-          spacing={{ xs: 3, md: 4, lg: 6 }}
+          spacing={{ xs: 3, sm: 4, md: 5 }}
           justifyContent="center"
           sx={{ pb: { xs: 6, md: 10 } }}
         >
           {services.map((service, index) => (
-            <Grid key={index} xs={12} sm={6} md={6} lg={3}>
+            <Grid item xs={12} sm={6} md={6} lg={3} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
               <motion.div
                 variants={itemVariants}
-                whileHover={{ 
-                  y: -15,
-                  transition: { type: "spring", stiffness: 300 }
-                }}
+                whileHover={{ y: -15, transition: { type: "spring", stiffness: 300 } }}
                 whileTap={{ scale: 0.95 }}
+                style={{ width: '100%' }}
               >
                 <Card
                   sx={{
-                    height: '100%',
+                    width: '100%',
+                    maxWidth: { xs: '100%', sm: 360 },
+                    minHeight: { xs: 'auto', md: 360 },
+                    mx: 'auto',
                     bgcolor: '#112240',
                     borderRadius: '20px',
                     boxShadow: `0 0 20px ${service.color}33, 0 0 40px ${service.color}11`,
@@ -216,7 +184,7 @@ const ServicesSection = () => {
                   }}
                 >
                   <CardContent sx={{ 
-                    p: { xs: 3, md: 4 }, 
+                    p: { xs: 2, md: 4 }, 
                     textAlign: 'center',
                     display: 'flex',
                     flexDirection: 'column',
@@ -226,19 +194,14 @@ const ServicesSection = () => {
                     <motion.div
                       initial={{ scale: 0, rotate: -180 }}
                       whileInView={{ scale: 1, rotate: 0 }}
-                      transition={{ 
-                        type: "spring", 
-                        stiffness: 200, 
-                        damping: 15,
-                        delay: service.delay 
-                      }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15, delay: service.delay }}
                       viewport={{ once: true }}
                     >
                       <service.icon
-                        size={54}
+                        size={48}
                         strokeWidth={1.8}
                         color={service.color}
-                        style={{ marginBottom: 24, filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.3))' }}
+                        style={{ marginBottom: 20, filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.3))' }}
                       />
                     </motion.div>
                     
@@ -259,7 +222,7 @@ const ServicesSection = () => {
                       sx={{ 
                         color: '#8892b0', 
                         lineHeight: 1.6,
-                        fontSize: { xs: '0.9rem', md: '1rem' }
+                        fontSize: { xs: '0.85rem', md: '1rem' }
                       }}
                     >
                       {service.description}
@@ -272,7 +235,6 @@ const ServicesSection = () => {
         </Grid>
       </motion.div>
 
-      {/* Typing Text Section */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -295,7 +257,7 @@ const ServicesSection = () => {
               mx: 'auto',
               position: 'relative',
               lineHeight: 1.6,
-              fontSize: { xs: '1rem', md: '1.1rem' },
+              fontSize: { xs: '0.9rem', md: '1.1rem' },
               px: { xs: 2, md: 0 }
             }}
           >
@@ -310,11 +272,7 @@ const ServicesSection = () => {
                 verticalAlign: 'middle'
               }}
               animate={{ opacity: [0, 1, 0] }}
-              transition={{ 
-                duration: 1, 
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
+              transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
             />
             
             <motion.div

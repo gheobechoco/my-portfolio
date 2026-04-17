@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Box, Typography, IconButton, Stack } from '@mui/material';
+import { Box, Typography, IconButton, Stack, useTheme, useMediaQuery } from '@mui/material';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { socialLinks } from './config/socialLinks';
 
@@ -46,6 +46,8 @@ const ParticlesBackground = ({ mouseX, mouseY }) => {
 };
 
 export default function Footer({ hideSideIcons }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const containerRef = useRef(null);
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
@@ -66,10 +68,10 @@ export default function Footer({ hideSideIcons }) {
     <Box
       ref={containerRef}
       component="footer"
-      sx={{ position: 'relative', width: '100%', minHeight: '50vh', bgcolor: 'transparent', overflow: 'hidden', px: { xs: 4, md: 10 }, py: 8 }}
+      sx={{ position: 'relative', width: '100%', minHeight: '50vh', bgcolor: 'transparent', overflow: 'hidden', px: { xs: 2, sm: 4, md: 8, lg: 10 }, py: { xs: 6, md: 10 } }}
     >
       {/* Animated particles */}
-      <ParticlesBackground mouseX={smoothX} mouseY={smoothY} />
+      {!isMobile && <ParticlesBackground mouseX={smoothX} mouseY={smoothY} />}
 
       {/* Blurred circle animation */}
       <motion.div
@@ -83,7 +85,15 @@ export default function Footer({ hideSideIcons }) {
         <Typography variant="h6" sx={{ color: '#64ffda', mb: 2 }}>Restons en contact</Typography>
         <Stack direction="row" spacing={2} justifyContent="center" sx={{ mb: 3 }}>
           {filteredLinks.map(social => (
-            <IconButton key={social.name} component="a" href={social.url} target="_blank" rel="noopener noreferrer" sx={{ color: social.color, '&:hover': { bgcolor: `${social.color}22` } }}>
+            <IconButton 
+              key={social.name} 
+              component="a" 
+              href={social.url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label={`Visitez mon profil ${social.name}`}
+              sx={{ color: social.color, '&:hover': { bgcolor: `${social.color}22` } }}
+            >
               <social.icon fontSize="large" />
             </IconButton>
           ))}

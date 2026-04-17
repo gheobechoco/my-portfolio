@@ -23,7 +23,7 @@ function App() {
       <CssBaseline />
       <Box sx={{ 
         background: 'linear-gradient(to bottom, #0a192f, #0a1a30, #0a192f)',
-        backgroundAttachment: 'fixed',
+        backgroundAttachment: { xs: 'scroll', md: 'fixed' },
         minHeight: '100vh',
         overflowX: 'hidden',
       }}>

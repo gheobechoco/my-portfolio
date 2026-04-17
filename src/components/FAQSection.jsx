@@ -125,8 +125,8 @@ export default function FAQSection() {
         position: 'relative',
         minHeight: 'auto',
         bgcolor: 'transparent',
-        px: { xs: 2, sm: 3, md: 6 },
-        py: { xs: 8, md: 12 },
+        px: { xs: 2, sm: 4, md: 8, lg: 10 },
+        py: { xs: 6, md: 10 },
         overflow: 'hidden'
       }}
     >
