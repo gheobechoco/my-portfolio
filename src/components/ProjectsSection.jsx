@@ -23,8 +23,10 @@ import portecvLogoImg from '../assets/logo-portecv-fondBlancn.png';
 import portecvStudentImg from '../assets/etudiant-potecv-polo-modele.jpg';
 import zipUnzipImg from '../assets/student-hero-DQI870mp.jpg';
 import edelweissImg from '../assets/logo-edelweiss.jpg';
+import primePromptImg from '../assets/image.png';   // ← Ajout de l'image pour PrimePrompt
 
 const ParticlesBackground = ({ mouseX, mouseY }) => {
+  // ... (identique à votre code, pas de changement)
   const particles = Array.from({ length: 20 });
   return (
     <>
@@ -149,6 +151,15 @@ const projects = [
     url: 'https://www.figma.com/file/PGoHtdjBW1S8ACkOPdPA43/EdelWeiss-Logiciel?node-id=215-217',
     isFigma: true,
     technologies: ['Figma', 'UI/UX', 'Prototypage']
+  },
+  // PrimePrompt : maintenant une carte classique avec image statique
+  {
+    title: 'PrimePrompt – Landing Page',
+    description: "Design d'une landing page moderne pour PrimePrompt, outil d'IA générative.",
+    image: primePromptImg,   // ← image locale
+    url: 'https://embed.figma.com/design/lD1sxLVQtlMAkBVrBm2Eix/PrimePrompt--Landing-Page?node-id=5-93&embed-host=share',
+    technologies: ['Figma', 'UI/UX', 'Landing Page']
+    // isFigma n'est pas présent → affichage de l'image
   }
 ];
 
@@ -172,8 +183,8 @@ const ProjectsSection = () => {
       cursorY.set(e.clientY);
     };
     const c = containerRef.current;
-    c.addEventListener('mousemove', handleMouseMove);
-    return () => c.removeEventListener('mousemove', handleMouseMove);
+    if (c) c.addEventListener('mousemove', handleMouseMove);
+    return () => c && c.removeEventListener('mousemove', handleMouseMove);
   }, [cursorX, cursorY]);
 
   useEffect(() => {
@@ -300,7 +311,10 @@ const ProjectsSection = () => {
             >
               {proj.isFigma ? (
                 <Box sx={{ p: 2 }}>
-                  <FigmaEmbed title={proj.title} />
+                  <FigmaEmbed 
+                    title={proj.title} 
+                    embedUrl={proj.embedUrl}
+                  />
                 </Box>
               ) : (
                 proj.image && (
@@ -405,4 +419,4 @@ const ProjectsSection = () => {
   );
 };
 
-export default ProjectsSection;
+export default ProjectsSection; 
