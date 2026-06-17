@@ -209,7 +209,7 @@ export default function HeroSection() {
             mb: 4 
           }}
         >
-          Je suis développeur web junior
+          Je suis développeur web et app Mobile
         </Typography>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button 

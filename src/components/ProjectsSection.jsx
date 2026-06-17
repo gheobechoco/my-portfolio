@@ -16,6 +16,8 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import SectionTransition from './SectionTransition';
 import useGsapAnimation from '../hooks/useGsapAnimation';
 import FigmaEmbed from './FigmaEmbed';
+
+// Images depuis assets
 import healthImg from '../assets/PIEDS DE PAGE MARY MEDICLINIC.png';
 import ogoulaImg from '../assets/PorteCvMedium.png';
 import ndalangImg from '../assets/NdaLang.png';
@@ -23,10 +25,21 @@ import portecvLogoImg from '../assets/logo-portecv-fondBlancn.png';
 import portecvStudentImg from '../assets/etudiant-potecv-polo-modele.jpg';
 import zipUnzipImg from '../assets/student-hero-DQI870mp.jpg';
 import edelweissImg from '../assets/logo-edelweiss.jpg';
-import primePromptImg from '../assets/image.png';   // ← Ajout de l'image pour PrimePrompt
+import primePromptImg from '../assets/image.png';
+import edcImg from '../assets/EDC.jpg';
+
+// Images depuis assets pour les nouveaux projets
+import coupleBlancImg from '../assets/couple-blanc.jpg';
+import coupleOrangeBleuImg from '../assets/couple-orange-bleu.jpg';
+import showGabImg from '../assets/Show-Gab.png';
+
+// Images depuis public (chemins absolus)
+// Correction : le fichier s'appelle tchophap.png (sans 's')
+const tchopshapImg = '/tchopshap.png';  // ⚠️ Attention : tchophap.png (sans 's')
+const portfolioImg = '/portfolio.png';
+const abamadImg = '/abamad-liv-jl-accroupi.jpeg';
 
 const ParticlesBackground = ({ mouseX, mouseY }) => {
-  // ... (identique à votre code, pas de changement)
   const particles = Array.from({ length: 20 });
   return (
     <>
@@ -70,28 +83,28 @@ const projects = [
   {
     title: 'TchopShap',
     description: "Un blog développé avec React et Markdown",
-    image: 'tchopshap.png',
+    image: tchopshapImg,
     url: 'https://tchopshap.vercel.app/',
     technologies: ['React', 'Markdown', 'Vercel']
   },
   {
     title: 'AbAmAd',
     description: "Découvrez ce projet sur ma page Github.",
-    image: '/abamad-liv-jl-accroupi.jpeg',
+    image: abamadImg,
     url: 'https://gheobechoco.github.io/AbAmAd/',
     technologies: ['HTML', 'CSS', 'JavaScript']
   },
   {
     title: 'Mon Portfolio',
     description: "Découvrez mon portfolio déployé sur Vercel, présentant mes projets et compétences.",
-    image: 'portfolio.png',
+    image: portfolioImg,
     url: 'https://vercel.com/gheobechocos-projects/my-portfolio',
     technologies: ['React', 'MUI', 'Framer Motion']
   },
   {
     title: 'Maquette Entreprise EDC PRO CONSULTING',
     description: "Découvrez la Maquette d EDC PRO Consulting un de nos Client actuel .",
-    image: 'src/assets/EDC.jpg',
+    image: edcImg,
     url: 'https://supply-edc.vercel.app/',
     technologies: ['React', 'MUI', 'Framer Motion']
   },
@@ -120,7 +133,7 @@ const projects = [
     title: 'Mary Mediclinique',
     description: "Site web de la clinique Mary Mediclinique - présentation des services médicaux et prise de rendez-vous.",
     image: healthImg,
-    url: 'https://mary-mediclinique.vercel.app/',
+    url: 'https://www.mary-mediclinic.com/',
     technologies: ['React', 'MUI', 'Vercel']
   },
   {
@@ -152,14 +165,34 @@ const projects = [
     isFigma: true,
     technologies: ['Figma', 'UI/UX', 'Prototypage']
   },
-  // PrimePrompt : maintenant une carte classique avec image statique
   {
     title: 'PrimePrompt – Landing Page',
     description: "Design d'une landing page moderne pour PrimePrompt, outil d'IA générative.",
-    image: primePromptImg,   // ← image locale
+    image: primePromptImg,
     url: 'https://embed.figma.com/design/lD1sxLVQtlMAkBVrBm2Eix/PrimePrompt--Landing-Page?node-id=5-93&embed-host=share',
     technologies: ['Figma', 'UI/UX', 'Landing Page']
-    // isFigma n'est pas présent → affichage de l'image
+  },
+  // NOUVEAUX PROJETS
+  {
+    title: 'Wedding Tatiana & Gheoffrey',
+    description: "Site web de mariage élégant pour Tatiana et Gheoffrey. Design romantique avec animations fluides.",
+    image: coupleBlancImg,
+    url: 'https://wedding-tatiana-gheoffrey.vercel.app/',
+    technologies: ['React', 'Framer Motion', 'Vercel']
+  },
+  {
+    title: 'Ring Unveil',
+    description: "Découvrez Ring Unveil - une expérience interactive pour découvrir les alliances.",
+    image: coupleOrangeBleuImg,
+    url: 'https://ring-unveil.vercel.app/',
+    technologies: ['React', 'MUI', 'TypeScript', 'Vercel']
+  },
+  {
+    title: 'Gab Booking Extension',
+    description: "Extension de réservation pour le Gabon - plateforme de gestion de rendez-vous et de planning.",
+    image: showGabImg,
+    url: 'https://v0-show-gab-booking-extension-rose.vercel.app/',
+    technologies: ['React', 'Vercel', 'Booking System']
   }
 ];
 
@@ -419,4 +452,4 @@ const ProjectsSection = () => {
   );
 };
 
-export default ProjectsSection; 
+export default ProjectsSection;

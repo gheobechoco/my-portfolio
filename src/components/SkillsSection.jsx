@@ -4,13 +4,21 @@ import Grid from '@mui/material/Grid';
 import { motion } from 'framer-motion';
 import SectionTransition from './SectionTransition';
 
+// Import des images depuis le dossier assets
+import djangoImg from '../assets/django.png';
+import bootstrapImg from '../assets/boostrap.jpg';
+
 const skills = [
   { name: 'HTML5', level: 90, color: '#E34F26', icon: '/icons/skill-icons--html.svg' },
   { name: 'CSS3', level: 85, color: '#264DE4', icon: '/icons/devicon--css3.svg' },
   { name: 'JavaScript', level: 80, color: '#F0DB4F', icon: '/icons/fa-brands--js-square.svg' },
   { name: 'TypeScript', level: 70, color: '#3178C6', icon: '/icons/logos--typescript-icon.svg' },
   { name: 'React.js', level: 75, color: '#61DAFB', icon: '/icons/devicon--react.svg' },
-  { name: 'Design (Figma)', level: 70, color: '#A259FF', icon: '/icons/devicon--figma.svg' }
+  { name: 'Design (Figma)', level: 70, color: '#A259FF', icon: '/icons/devicon--figma.svg' },
+  // Nouveaux ajouts avec les bonnes images
+  { name: 'Python', level: 65, color: '#3776AB', icon: '/python.png' },
+  { name: 'Bootstrap', level: 75, color: '#7952B3', icon: bootstrapImg },
+  { name: 'Django', level: 60, color: '#092E20', icon: djangoImg }
 ];
 
 const containerVariants = {
@@ -99,7 +107,13 @@ function SkillsSection() {
                     component="img"
                     src={skill.icon}
                     alt={skill.name}
-                    sx={{ width: { xs: 60, md: 100 }, height: { xs: 30, md: 60 }, mb: 2, mx: 'auto' }}
+                    sx={{ 
+                      width: { xs: 60, md: 100 }, 
+                      height: { xs: 30, md: 60 }, 
+                      mb: 2, 
+                      mx: 'auto',
+                      objectFit: 'contain'
+                    }}
                   />
                   <Typography variant="h6" sx={{ color: skill.color, fontWeight: 700, mb: 2, fontSize: { xs: '1rem', md: '1.25rem' } }}>
                     {skill.name}
