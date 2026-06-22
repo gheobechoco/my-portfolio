@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
-import { TextField, Button, DialogActions, Box, CircularProgress } from '@mui/material';
+import { TextField, Button, DialogActions, Box, CircularProgress, Typography } from '@mui/material';
 import ConfettiCongrats from './ConfettiCongrats';
 
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID;
+
 export default function ContactForm({ onSuccess }) {
-  const [state, handleSubmit] = useForm("mnnpedla"); // votre ID Formspree
+  if (!FORMSPREE_FORM_ID) {
+    return (
+      <Box sx={{ padding: 3, textAlign: 'center' }}>
+        <Typography color="error" variant="h6">
+          La configuration du formulaire n'est pas disponible.
+        </Typography>
+        <Typography>
+          Ajoutez votre identifiant Formspree dans un fichier `.env` local avec la clé `VITE_FORMSPREE_FORM_ID`.
+        </Typography>
+      </Box>
+    );
+  }
+
+  const [state, handleSubmit] = useForm(FORMSPREE_FORM_ID);
   const [showConfetti, setShowConfetti] = useState(false);
 
   React.useEffect(() => {

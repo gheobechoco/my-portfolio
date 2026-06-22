@@ -140,7 +140,7 @@ const projects = [
     title: 'Gabon Talent Connect',
     description: "Plateforme de mise en relation professionnelle et d'emploi pour le Gabon.",
     image: portecvLogoImg,
-    url: 'https://gabon-talent-connect.vercel.app/',
+    confidential: true,
     technologies: ['React', 'Vercel', 'UI']
   },
   {
@@ -416,7 +416,27 @@ const ProjectsSection = () => {
                 )}
               </CardContent>
 
-              {proj.url && (
+              {proj.confidential ? (
+                <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0, justifyContent: 'center' }}>
+                  <Button
+                    fullWidth
+                    size="medium"
+                    variant="outlined"
+                    disabled
+                    sx={{
+                      color: '#64ffda',
+                      borderColor: '#64ffda',
+                      borderRadius: '8px',
+                      py: 1,
+                      fontWeight: 600,
+                      opacity: 0.65,
+                      cursor: 'default'
+                    }}
+                  >
+                    Accès confidentiel
+                  </Button>
+                </CardActions>
+              ) : proj.url ? (
                 <CardActions sx={{ p: { xs: 2, md: 3 }, pt: 0, justifyContent: 'center' }}>
                   <Button
                     fullWidth
@@ -441,7 +461,7 @@ const ProjectsSection = () => {
                     {proj.isFigma ? 'Voir le design Figma' : 'Voir le projet'}
                   </Button>
                 </CardActions>
-              )}
+              ) : null}
             </Card>
           </Grid>
         ))}
